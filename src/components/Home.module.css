@@ -1,0 +1,46 @@
+
+.video_background {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 85%;
+    overflow: hidden;
+    
+  }
+  .video_right {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .content{
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    
+  }
+/*   
+  .video_left,
+  .video_right {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .video_left {
+    left: 0;
+  }
+  
+  .video_right {
+    right: 0;
+  }
+   */

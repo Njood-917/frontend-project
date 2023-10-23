@@ -1,0 +1,16 @@
+{
+  "links": [
+    {
+      "label": "Products",
+      "href": "/ProductsManger"
+    },
+    {
+      "label": "About",
+      "href": "/About"
+    },
+    {
+      "label": "Contact",
+      "href": "/Contact"
+    }
+  ]
+}

@@ -1,11 +1,13 @@
-import { ProductsManager } from './components/ProductsManager'
+import Navbar from './components/Navbar'
 import './App.css'
+import Home from './components/Home'
 
 function App() {
   return (
     <div className="App">
-      <h1>Vite + React + Toolkit + Tailwind</h1>
-      <ProductsManager />
+      <Home />
+
+      {/* <ProductsManager /> */}
     </div>
   )
 }
