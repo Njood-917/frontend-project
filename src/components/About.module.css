@@ -1,11 +1,37 @@
-.about{
-    /* position:absolute; */
-    /* width: 100%;
-    height: 100%; */
-    
+
+  
+  .about {
+    width: 100%;
+    height: 50%;
+  }
+  
+  .background_about {
+    position: relative;
+    height: 50%;
+  }
+  
+  .img_left,
+  .img_right {
+    width: 50%;
+  }
+  
+  .img_left {
+    float: left;
+  }
+  
+  .img_right {
+    float: right;
+  }
+  
+  .content {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+   top: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     color: white;
-}
+  }
+  

@@ -1,42 +1,17 @@
 [
   {
     "id": 1,
-    "name": "Electronics"
+    "name": "Home Workout",
+    "image": "src/assets/Home_workout.jpg"
   },
   {
     "id": 2,
-    "name": "Computers"
+    "name": "Dites",
+    "image": "https://m.media-amazon.com/images/I/81KoSSAwH2L._SL1500_.jpg"
   },
   {
     "id": 3,
-    "name": "Mobile Phones"
-  },
-  {
-    "id": 4,
-    "name": "Gaming"
-  },
-  {
-    "id": 5,
-    "name": "Photography"
-  },
-  {
-    "id": 6,
-    "name": "Health & Fitness"
-  },
-  {
-    "id": 7,
-    "name": "Home Entertainment"
-  },
-  {
-    "id": 8,
-    "name": "Home Appliances"
-  },
-  {
-    "id": 9,
-    "name": "Audio"
-  },
-  {
-    "id": 10,
-    "name": "Storage"
+    "name": "Gym Workout",
+    "image": "https://m.media-amazon.com/images/I/81KoSSAwH2L._SL1500_.jpg"
   }
 ]

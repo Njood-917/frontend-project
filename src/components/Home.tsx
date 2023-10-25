@@ -1,12 +1,12 @@
 import React from 'react'
 import Navbar from './Navbar'
 import video1 from '../assets/video1.mp4'
-import video2 from '../assets/video2.mp4'
-import styles from './Home.module.css'
 import About from './About'
+import styles from './Home.module.css'
+import { Category } from './Category'
+import MainPage from './MainPage'
 
-
-function Home() {
+export function Home() {
   return (
     <div>
       <Navbar />
@@ -14,17 +14,15 @@ function Home() {
         <video autoPlay loop muted className={styles.video_right}>
           <source src={video1} type="video/mp4" />
         </video>
-        {/* <video autoPlay loop muted className={styles.video_right}>
-          <source src={video2} type="video/mp4" />
-        </video> */}
-      </div>
-      <div className={styles.content}>
-        <h1>Health lifestyle 🌿</h1>
-        <p>welcome in our website , let's make our life more healthier 🏋🏻‍♀️</p>
+
+        <div className={styles.content}>
+          <h1>Health lifestyle 🌿</h1>
+          <p>welcome in our website , make our life more healthier 🏋🏻‍♀️</p>
+        </div>
       </div>
       <About />
+      <Category />
+      <MainPage />
     </div>
   )
 }
-
-export default Home
