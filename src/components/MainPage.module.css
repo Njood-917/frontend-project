@@ -1,0 +1,15 @@
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  /* Style when the input is valid */
+input:valid {
+    border: 2px solid green;
+  }
+  
+  /* Style when the input is invalid */
+  input:invalid {
+    border: 2px solid red;
+  }
+  

@@ -8,6 +8,7 @@ import AdminPage from './components/AdminPage'
 import { ProductsManager } from './components/ProductsManager'
 import { Order } from './components/Order'
 import { Category } from './components/Category'
+import { EditProductWrapper } from './components/EditProductWrapper'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products/:id" element={<ProductDetailes />} />
+        <Route path="/products/edit/:id" element={<EditProductWrapper />} />
         <Route path="/admainPage" element={<AdminPage />} />
         <Route path="/userList" element={<UserList />} />
         <Route path="/productManger" element={<ProductsManager />} />

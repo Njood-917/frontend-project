@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import {
-  editProduct,
   productsRequest,
   productsSuccess,
   removeProduct
@@ -30,7 +29,20 @@ export function ProductsManager() {
     // At this point we have the data so let's update the store
     dispatch(productsSuccess(res.data))
   }
+  // Function to handle the edit button click
+  //   const handleEditClick = (ProductState) => {
 
+  //   const updatedName = "New Name";
+  //   const updatedDescription ="New Description";
+  //   const updatedCategories = ["Category1", "Category2"];
+  // }
+
+  //   const updatedProduct = {
+  //   ...produc,
+  //   name: updatedName,
+  //   description: updatedDescription;
+  //   categories: updatedCategories;
+  // }
   return (
     <div>
       <Link to={'/category'}>
@@ -52,13 +64,16 @@ export function ProductsManager() {
             <button
               className="text-red-400 text-xs"
               onClick={() => dispatch(removeProduct({ productId: product.id }))}>
-              🗑️0
+              🗑️
             </button>
-            <button
+            <Link to={`/products/edit/${product.id}`}>
+              <button className="text-red-400 text-xs">Edit</button>
+            </Link>
+            {/* <button
               className="text-red-400 text-xs"
-              onClick={() => dispatch(editProduct({ productId: product.id, newData: [] }))}>
-              edit
-            </button>
+              onClick={() =>  dispatch(editProducts({ product: updatedProduct }))}>
+              Edit
+            </button> */}
           </div>
         ))}
       </div>

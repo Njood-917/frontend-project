@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export type Product = {
   id: number
@@ -8,7 +8,6 @@ export type Product = {
   categories: number[]
   variants: string[]
   sizes: string[]
-  categoryId: null | number //maybe change later
 }
 
 export type ProductState = {
@@ -16,13 +15,15 @@ export type ProductState = {
   error: null | string
   isLoading: boolean
   selectedProduct: Product | null
+  SearchTerm: string
 }
 
 const initialState: ProductState = {
   products: [],
   error: null,
   isLoading: false,
-  selectedProduct: null
+  selectedProduct: null,
+  SearchTerm: ''
 }
 
 export const userSlice = createSlice({
@@ -45,46 +46,62 @@ export const userSlice = createSlice({
       )
       state.products = filteredItems
     },
-    // editProduct: (state, action) => {
-    // const { productId, newData } = action.payload
-    // const productIndex = state.products.findIndex((product) => product.id === productId)
-    // if (productIndex !== -1) {
-    //   // Create a new array with the updated product
-    //   state.products = [
-    //     ...state.products.slice(0, productIndex),
-    //     { ...state.products[productIndex], ...newData },
-    //     ...state.products.slice(productIndex + 1)
-    //   ]
-    // }
 
-editProduct:(state , action :{ payload: { product: Product } })=>{
-  const indexToEdit = state.products.findIndex(())
-
-
-  
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // const previousProduct = state.products.map(product => )
+    // const updateProduct = []
+    //   const { id } = action.payload.product
+    //   console.log('Editing product with id:', id)
+    //   // Find the index of the product based on its id
+    //   const updateItemIndex = state.products.findIndex((p) => p.id === id)
+    //   console.log('Found product at index:', updateItemIndex)
+    //   if (updateItemIndex !== -1) {
+    //     // Use spread operator to create a new array and update the product
+    //     const updatedProducts = [...state.products]
+    //     // Assuming you want to update other properties as well
+    //     updatedProducts[updateItemIndex] = {
+    //       ...updatedProducts[updateItemIndex]
+    //       // Add other properties you want to update
+    //     }
+    //     // Return the updated state
+    //     const newState = { ...state, products: updatedProducts }
+    //     console.log('New state:', newState)
+    //     return newState
+    //   }
+    //   // If the product is not found, return the current state
+    //   console.log('Product not found. Current state:', state)
+    //   return state
+    // },
+    editProducts: (state, action: PayloadAction<{ product: Product }>) => {
+      // const {id} = action.payload
+      const index = state.products.findIndex((item) => item.id === action.payload.product.id)
+      const updatedProducts = state.products.splice(index, 1, action.payload.product)
+      return { ...state, products: updatedProducts }
+      // // console.log(action.payload)
+      // const productFound = state.products.find((product) => product.id === id)
+      // if (productFound) {
+      //   = id
+      //   // productFound.categories = categories
+      //   return { ...state, products: [...state.products] }
+      // }
+      // return state
+    },
     filteredItems: (state, action: { payload: { productId: number } }) => {
       const filteredItems = state.products.filter(
         (product) => product.id !== action.payload.productId
       )
       state.products = filteredItems
+    },
+    searchProduct: (state, action) => {
+      state.SearchTerm = action.payload
     }
   }
 })
-export const { removeProduct, addProduct, productsRequest, productsSuccess, editProduct } =
-  userSlice.actions
+export const {
+  removeProduct,
+  addProduct,
+  productsRequest,
+  productsSuccess,
+  editProducts,
+  searchProduct
+} = userSlice.actions
 export default userSlice.reducer

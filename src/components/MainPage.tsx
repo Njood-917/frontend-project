@@ -1,7 +1,12 @@
-import { useEffect } from 'react'
+import { useEffect, ChangeEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { productsRequest, productsSuccess, Product } from '../redux/slices/products/productSlice'
+import {
+  productsRequest,
+  productsSuccess,
+  Product,
+  searchProduct
+} from '../redux/slices/products/productSlice'
 import {
   categoriesRequest,
   categoriesSuccess,
@@ -10,12 +15,13 @@ import {
 import { AppDispatch, RootState } from '../redux/store'
 import api from '../api'
 import { Link } from 'react-router-dom'
-
+import styles from './MainPage.module.css'
 export default function MainPage() {
   const dispatch = useDispatch<AppDispatch>()
   const state = useSelector((state: RootState) => state)
   const products = state.products
   const categories = state.categories
+  const searchTerm = useSelector((state: RootState) => state.products.SearchTerm)
   useEffect(() => {
     handleGetProducts()
     handleGetCategories()
@@ -37,11 +43,11 @@ export default function MainPage() {
     dispatch(productsSuccess(res.data))
   }
 
-  const Products: Product[] = state.products.products
-  const selectedCategoryId: number | null = state.categories.selectedCategoryId
+  const productsList: Product[] = state.products.products
+  const selectedCategoryId: number = state.categories.selectedCategoryId
 
-  const filterProductsbyCategory = (categoryId: number | null, productsList: Product[]) => {
-    if (categoryId == null) {
+  const filterProductsbyCategory = (categoryId: number, productsList: Product[]) => {
+    if (categoryId == 0) {
       return productsList
     }
 
@@ -52,11 +58,24 @@ export default function MainPage() {
     }
   }
 
-  const filteredProducts = filterProductsbyCategory(selectedCategoryId, Products)
+  const filteredProducts = filterProductsbyCategory(selectedCategoryId, productsList)
 
   const handleCategoryChange = (categoryId: number) => {
     dispatch(setSelectedCategory(categoryId))
   }
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    dispatch(searchProduct(event.target.value))
+  }
+  const filterProductbySearch = (products: Product[], searchKeyWord: string) => {
+    return searchKeyWord
+      ? products.filter((product) =>
+          product.name.toLocaleLowerCase().includes(searchKeyWord.toLocaleLowerCase())
+        )
+      : products
+  }
+
+  const filteredAndSearchedProducts = filterProductbySearch(filteredProducts, searchTerm)
+
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -67,7 +86,7 @@ export default function MainPage() {
             id="category"
             onChange={(e) => handleCategoryChange(Number(e.target.value))}
             value={state.categories.selectedCategoryId || ''}>
-            <option value="">All Categories</option>
+            <option value={0}>All Categories</option>
             {categories.categories.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.name}
@@ -77,7 +96,17 @@ export default function MainPage() {
         </div>
         {products.isLoading && <h3>Loading products...</h3>}
         <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 xl:gap-x-8">
-          {filteredProducts.map((product) => (
+          <h2> search Product</h2>
+          <input
+            type="text"
+            name="SearchByname"
+            placeholder="Search by name here .."
+            onChange={handleSearch}
+            value={searchTerm}
+            width={100}
+            height={50}
+          />
+          {filteredAndSearchedProducts.map((product) => (
             <Link to={`products/${product.id}`} key={product.id} className="group">
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                 <img

@@ -9,11 +9,11 @@ export type CategoryState = {
   categories: Category[]
   error: null | string
   isLoading: boolean
-  selectedCategoryId: null | number
+  selectedCategoryId: number
 }
 const initialState: CategoryState = {
   categories: [],
-  selectedCategoryId: null,
+  selectedCategoryId: 0,
   error: null,
   isLoading: false
 }

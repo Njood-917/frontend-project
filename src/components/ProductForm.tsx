@@ -1,15 +1,16 @@
 import { ChangeEvent, FormEvent } from 'react'
 import { Product } from '../redux/slices/products/productSlice'
 
-type ProductFormProps = {
+export type ProductFormProps = {
+  isEdit: boolean
   product: Product
   handleSubmit: (e: FormEvent) => void
   handleChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
-export function ProductForm({ product, handleSubmit, handleChange }: ProductFormProps) {
+export function ProductForm({ isEdit, product, handleSubmit, handleChange }: ProductFormProps) {
   const inputStyle =
-    'w-full px-3 py-2 text-white border rounded-lg focus:outline-none focus:border-blue-400'
+    'w-full px-3 py-2 text-black border rounded-lg focus:outline-none focus:border-blue-400'
   const labelStyle = 'block text-sm font-medium text-gray-600'
 
   return (
@@ -88,13 +89,13 @@ export function ProductForm({ product, handleSubmit, handleChange }: ProductForm
           id="sizes"
           value={product.sizes.join(',')}
           onChange={handleChange}
-          className="w-full px-3 py-2 text-white border rounded-lg focus:outline-none focus:border-blue-400"
+          className="w-full px-3 py-2 text-black border rounded-lg focus:outline-none focus:border-blue-400"
         />
       </div>
       <button
         type="submit"
-        className="w-full px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
-        Add Product
+        className="w-full px-4 py-2 text-black bg-blue-500 rounded-lg hover:bg-blue-600">
+        {isEdit ? 'Edit Product' : 'Add Product'}
       </button>
     </form>
   )
