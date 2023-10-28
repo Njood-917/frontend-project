@@ -12,6 +12,7 @@ import {
   categoriesSuccess,
   setSelectedCategory
 } from '../redux/slices/products/categorySlice'
+import { addToCart } from '../redux/slices/products/cartSlice'
 import { AppDispatch, RootState } from '../redux/store'
 import api from '../api'
 import { Link } from 'react-router-dom'
@@ -109,7 +110,7 @@ export default function MainPage() {
         </div>
         <div className="grid grid-cols-1 gap-x-3 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 xl:gap-x-8">
           {filteredAndSearchedProducts.map((product) => (
-            <Link to={`products/${product.id}`} key={product.id} className="group">
+            <div key={product.id}>
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                 <img
                   src={product.image}
@@ -121,7 +122,12 @@ export default function MainPage() {
               <Link to={`products/${product.id}`}>
                 <button className="mt-1 text-lg font-medium text-gray-900">More detailes</button>
               </Link>
-            </Link>
+              <button
+                onClick={() => dispatch(addToCart(product))}
+                className="mt-1 text-lg font-medium text-gray-900">
+                Add
+              </button>
+            </div>
           ))}
         </div>
       </div>

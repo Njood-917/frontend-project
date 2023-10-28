@@ -12,22 +12,24 @@ import { EditProductWrapper } from './components/EditProductWrapper'
 import Login from './components/Login'
 import ProtectedRoute from './components/ProtectedRoute'
 import MainPage from './components/MainPage'
+import Cart from './components/Cart'
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/MainPage" element={<MainPage />} />
-        <Route path="/products/:id" element={<ProductDetailes />} />
-        <Route path="/products/edit/:id" element={<EditProductWrapper />} />
-        <Route path="/protectedRoute" element={<ProtectedRoute />} />
-        <Route path="/admainPage" element={<AdminPage />} />
-        <Route path="/userList" element={<UserList />} />
+        <Route path="/ProtectedRoute" element={<ProtectedRoute />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/productManger" element={<ProductsManager />} />
-        <Route path="/order" element={<Order />} />
+        <Route path="/MainPage" element={<MainPage />} />
         <Route path="/category" element={<Category />} />
+        <Route path="/cart" element={<Cart />} />
+
+        <Route path="/" element={<Home />} />
+        <Route path="/admin" element={<ProductsManager />} />
+        <Route path="/order" element={<Order />} />
+        <Route path="/products/edit/:id" element={<EditProductWrapper />} />
+        <Route path="/userList" element={<UserList />} />
+        <Route path="/products/:id" element={<ProductDetailes />} />
       </Routes>
     </div>
   )
