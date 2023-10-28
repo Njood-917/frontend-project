@@ -12,7 +12,7 @@ export default function ProductDetails() {
   console.log(products)
 
   const selectedProduct = products.find((product: Product) => product.id === Number(id))
-  // console.log(selectedProduct)
+  console.log(selectedProduct)
 
   if (!selectedProduct) {
     return <div>No product found.</div>

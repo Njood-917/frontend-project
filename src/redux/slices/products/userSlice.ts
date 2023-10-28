@@ -12,17 +12,25 @@ export type UserState = {
   users: User[]
   error: null | string
   isLoading: boolean
+  isLoggedIn: boolean // every body know if the user logged in
+  userData: User | null // i can use the data from anywhere
 }
 const initialState: UserState = {
   users: [],
   error: null,
-  isLoading: false
+  isLoading: false,
+  isLoggedIn: false,
+  userData: null
 }
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    login: (state, action) => {
+      state.isLoggedIn = true
+      state.userData = action.payload
+    },
     userRequest: (state) => {
       state.isLoading = true
     },
@@ -33,5 +41,5 @@ export const userSlice = createSlice({
   }
 })
 
-export const { userRequest, userSuccess } = userSlice.actions
+export const { userRequest, userSuccess, login } = userSlice.actions
 export default userSlice.reducer

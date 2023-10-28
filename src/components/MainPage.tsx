@@ -95,17 +95,19 @@ export default function MainPage() {
           </select>
         </div>
         {products.isLoading && <h3>Loading products...</h3>}
-        <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 xl:gap-x-8">
+        <div>
           <h2> search Product</h2>
+
           <input
             type="text"
             name="SearchByname"
             placeholder="Search by name here .."
             onChange={handleSearch}
             value={searchTerm}
-            width={100}
-            height={50}
+            style={{ width: '150px', padding: '7px' }}
           />
+        </div>
+        <div className="grid grid-cols-1 gap-x-3 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 xl:gap-x-8">
           {filteredAndSearchedProducts.map((product) => (
             <Link to={`products/${product.id}`} key={product.id} className="group">
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">

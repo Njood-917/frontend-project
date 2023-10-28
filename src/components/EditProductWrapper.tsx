@@ -36,41 +36,7 @@ export const EditProductWrapper = () => {
     e.preventDefault()
 
     dispatch(editProducts({ product: product }))
-    // Reset the form
-    // setProduct(initialProductState)
   }
-
-  // const { state } = useLocation()
-
-  // const [id] = useState(state.id)
-  // const [name, setName] = useState(state.name)
-  // const [description, setDescription] = useState(state.description)
-
-  // const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   if (event.target.name === 'name') {
-  //     setName(event.target.value)
-  //   } else if (event.target.name === 'description') {
-  //     setDescription(event.target.value)
-  //   }
-  // }
-
-  // const handleSubmit = (event: FormEvent) => {
-  //   event.preventDefault()
-  //   const editedProduct = {
-  //     id: id,
-  //     name: name,
-  //     description: description
-  //   }
-  //   if (!name || !description) {
-  //     alert('add name and description')
-  //   } else {
-  //     dispatch(editProducts(editedProduct))
-  //   }
-  // }
-
-  // function handleChange(event: ChangeEvent<HTMLInputElement>): void {
-  //   throw new Error('Function not implemented.')
-  // }
 
   return (
     <div>
@@ -83,20 +49,6 @@ export const EditProductWrapper = () => {
           product={selectedProduct}
         />
       )}
-
-      {/* <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="title" value={name} onChange={handleChange} />
-        <br /> <br />
-        <input
-          type="text"
-          name="description"
-          placeholder="name"
-          value={description}
-          onChange={handleChange}
-        />
-        <br /> <br />
-        <button type="submit">Edit</button>
-      </form> */}
     </div>
   )
 }

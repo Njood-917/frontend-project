@@ -2,16 +2,16 @@
   {
     "id": 1,
     "name": "Home Workout",
-    "image": "src/assets/Home_workout.jpg"
+    "image": "src/assets/WhatsApp Image 2023-10-28 at 3.17.48 AM.jpeg"
   },
   {
     "id": 2,
     "name": "Dites",
-    "image": "https://m.media-amazon.com/images/I/81KoSSAwH2L._SL1500_.jpg"
+    "image": "src/assets/WhatsApp Image 2023-10-28 at 3.17.47 AM.jpeg"
   },
   {
     "id": 3,
     "name": "Gym Workout",
-    "image": "https://m.media-amazon.com/images/I/81KoSSAwH2L._SL1500_.jpg"
+    "image": "src/assets/photo_2023-10-28_03-36-08.jpg"
   }
 ]

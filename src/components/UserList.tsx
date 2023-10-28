@@ -8,7 +8,7 @@ import api from '../api'
 
 export function UserList() {
   const dispatch = useDispatch<AppDispatch>()
-  const state = useSelector((state: RootState) => state.users)
+  const state = useSelector((state: RootState) => state.usersR)
   const users = state.users
   const isLoading = state.isLoading
 
