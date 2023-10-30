@@ -1,11 +1,14 @@
-import { useEffect } from 'react'
+import { useEffect, ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import {
   productsRequest,
   productsSuccess,
-  removeProduct
+  addProduct,
+  removeProduct,
+  editProduct,
+  Product
 } from '../redux/slices/products/productSlice'
 import { AppDispatch, RootState } from '../redux/store'
 // import { NewProductWrapper } from './NewProductWrapper'
@@ -16,9 +19,59 @@ export function ProductsManager() {
   const state = useSelector((state: RootState) => state)
   const products = state.products
 
+  const [product, setProduct] = useState({
+    id: 0,
+    name: '',
+    image: '',
+    description: '',
+    categories: [],
+    variants: [],
+    sizes: []
+  })
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+
   useEffect(() => {
     handleGetProducts()
   }, [])
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    const isList = name === 'categories' || name === 'variants' || name === 'sizes'
+
+    if (selectedProduct) {
+      setSelectedProduct((prevProduct) => ({
+        ...prevProduct!,
+        [name]: isList ? value.split(',') : value
+      }))
+    } else {
+      setProduct((prevProduct) => ({
+        ...prevProduct,
+        [name]: isList ? value.split(',') : value
+      }))
+    }
+  }
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+
+    if (selectedProduct && selectedProduct.id) {
+      const updatedProduct = { ...selectedProduct }
+      dispatch(editProduct({ editedProduct: updatedProduct }))
+    } else {
+      const newProduct = { ...product, id: new Date().getTime() }
+      dispatch(addProduct({ product: newProduct }))
+    }
+
+    setProduct({
+      id: 0,
+      name: '',
+      image: '',
+      description: '',
+      categories: [],
+      variants: [],
+      sizes: []
+    })
+    setSelectedProduct(null)
+  }
 
   const handleGetProducts = async () => {
     // let's first turn the loader to true so we can have a better UX
@@ -29,23 +82,13 @@ export function ProductsManager() {
     // At this point we have the data so let's update the store
     dispatch(productsSuccess(res.data))
   }
-  // Function to handle the edit button click
-  //   const handleEditClick = (ProductState) => {
+  const handleEditBtnClick = (item: Product) => {
+    setSelectedProduct(item)
+  }
 
-  //   const updatedName = "New Name";
-  //   const updatedDescription ="New Description";
-  //   const updatedCategories = ["Category1", "Category2"];
-  // }
-
-  //   const updatedProduct = {
-  //   ...produc,
-  //   name: updatedName,
-  //   description: updatedDescription;
-  //   categories: updatedCategories;
-  // }
   return (
     <div>
-      <Link to={'/category'}>
+      <Link to={'/categoryForm'}>
         <button>category</button>
       </Link>
       <Link to={'/userList'}>
@@ -54,28 +97,146 @@ export function ProductsManager() {
       <Link to={'/order'}>
         <button>orders</button>
       </Link>
+      <div className="w-3/4 bg-white p-4">
+        <div className=" rounded-lg overflow-hidden mx-4 md:mx-10">
+          <div className="flex flex-1 items-center justify-center p-6">
+            <form className="mt-5 sm:flex sm:items-center" onSubmit={handleSubmit}>
+              <div className="flex">
+                <div className="mr-2">
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    value={selectedProduct ? selectedProduct.name : product.name}
+                    onChange={handleChange}
+                    className="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-3 leading-5 placeholder-gray-500 focus:border-gray-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-500 sm:text-sm"
+                    placeholder="Product Name"
+                  />
+                </div>
+                <div className="mr-2">
+                  <input
+                    type="text"
+                    name="image"
+                    id="image"
+                    value={selectedProduct ? selectedProduct.image : product.image}
+                    onChange={handleChange}
+                    className="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-3 leading-5 placeholder-gray-500 focus:border-gray-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-500 sm:text-sm"
+                    placeholder="Image Url"
+                  />
+                </div>
+              </div>
 
-      <div className="grid grid-cols-3 gap-4">
-        {products.isLoading && <h3>Loading products...</h3>}
-        {products.products.map((product) => (
-          <div key={product.id} className="card flex flex-col items-center text-2xl mb-2">
-            <img src={product.image} alt={product.name} width="100" />
-            <span>{product.name}</span>
-            <button
-              className="text-red-400 text-xs"
-              onClick={() => dispatch(removeProduct({ productId: product.id }))}>
-              🗑️
-            </button>
-            <Link to={`/products/edit/${product.id}`}>
-              <button className="text-red-400 text-xs">Edit</button>
-            </Link>
-            {/* <button
-              className="text-red-400 text-xs"
-              onClick={() =>  dispatch(editProducts({ product: updatedProduct }))}>
-              Edit
-            </button> */}
+              <div className="flex mt-2">
+                <div className="mr-2">
+                  <input
+                    name="description"
+                    id="description"
+                    value={selectedProduct ? selectedProduct.description : product.description}
+                    onChange={handleChange}
+                    className="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-3 leading-5 placeholder-gray-500 focus:border-gray-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-500 sm:text-sm"
+                    placeholder="Description"
+                    type="text"
+                  />
+                </div>
+                <div className="mr-2">
+                  <input
+                    type="text"
+                    name="categories"
+                    id="categories"
+                    value={
+                      selectedProduct
+                        ? selectedProduct.categories.join(',')
+                        : product.categories.join(',')
+                    }
+                    onChange={handleChange}
+                    className="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-3 leading-5 placeholder-gray-500 focus:border-gray-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-500 sm:text-sm"
+                    placeholder="Categories"
+                  />
+                </div>
+              </div>
+
+              <div className="flex mt-2">
+                <div className="mr-2">
+                  <input
+                    type="text"
+                    name="variants"
+                    id="variants"
+                    value={
+                      selectedProduct
+                        ? selectedProduct.variants.join(',')
+                        : product.variants.join(',')
+                    }
+                    onChange={handleChange}
+                    className="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-3 leading-5 placeholder-gray-500 focus:border-gray-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-500 sm:text-sm"
+                    placeholder="Varients"
+                  />
+                </div>
+                <div className="mr-2">
+                  <input
+                    type="text"
+                    name="sizes"
+                    id="sizes"
+                    value={
+                      selectedProduct ? selectedProduct.sizes.join(',') : product.sizes.join(',')
+                    }
+                    onChange={handleChange}
+                    className="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-3 leading-5 placeholder-gray-500 focus:border-gray-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-500 sm:text-sm"
+                    placeholder="Sizes"
+                  />
+                </div>
+              </div>
+
+              <button
+                className="mt-3 inline-flex items-center justify-center rounded-md border border-transparent bg-gray-500 px-4 py-2 font-medium text-white shadow-sm hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                {selectedProduct ? 'Edit Product' : 'Add Product'}
+              </button>
+            </form>
           </div>
-        ))}
+
+          <table className="w-full table-fixed border">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="w-1/7 py-4 px-6 text-left text-gray-600 font-bold">Count</th>
+                <th className="w-1/5 py-4 px-6 text-left text-gray-600 font-bold">Image</th>
+                <th className="w-1/5 py-4 px-6 text-left text-gray-600 font-bold">Name</th>
+                <th className="w-1/4 py-4 px-6 text-left text-gray-600 font-bold">Description</th>
+                <th className="w-1/4 py-4 px-6 text-left text-gray-600 font-bold">categories</th>
+                <th className="w-1/4 py-4 px-6 text-left text-gray-600 font-bold">varients</th>
+                <th className="w-1/4 py-4 px-6 text-left text-gray-600 font-bold">sizes</th>
+                <th className="w-1/4 py-4 px-6 text-left text-gray-600 font-bold">Action</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white">
+              {products.products.map((product, index) => (
+                <tr key={product.id}>
+                  <td className="py-4 px-6 border-b border-gray-200">{index + 1}</td>
+                  <td className="py-4 px-6 border-b border-gray-200">
+                    <img src={product.image} width={100} />
+                  </td>
+                  <td className="py-4 px-6 border-b border-gray-200">{product.name}</td>
+                  <td className="py-4 px-6 border-b border-gray-200">{product.description}</td>
+                  <td className="py-4 px-6 border-b border-gray-200">{product.categories}</td>
+                  <td className="py-4 px-6 border-b border-gray-200">{product.variants}</td>
+                  <td className="py-4 px-6 border-b border-gray-200">{product.sizes}</td>
+
+                  <td className="py-4 px-6 border-b border-gray-200 whitespace">
+                    <button
+                      onClick={() => handleEditBtnClick(product)}
+                      className="mr-1 text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:shadow-outline-blue active:bg-blue-600 py-2 px-4 font-small">
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => dispatch(removeProduct({ productId: product.id }))}
+                      className="text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-blue active:bg-red-600 py-2 px-4 font-small">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   )

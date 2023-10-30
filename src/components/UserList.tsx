@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { userRequest, userSuccess } from '../redux/slices/products/userSlice'
+import { userRequest, userSuccess, removeUser } from '../redux/slices/products/userSlice'
 import { AppDispatch, RootState } from '../redux/store'
 
 import api from '../api'
@@ -38,6 +38,11 @@ export function UserList() {
               <p>{user.email}</p>
               <p>{user.password}</p>
               <p>{user.role}</p>
+              <button
+                className=" text-red-400 text-xs"
+                onClick={() => dispatch(removeUser({ userId: user.id }))}>
+                X
+              </button>
             </li>
           ))}
         </ul>

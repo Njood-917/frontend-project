@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from '../redux/store'
 import styles from './Category.module.css'
 // import { NewProductWrapper } from './NewProductWrapper'
 import api from '../api'
+import CategoriesForm from './CategoriesForm'
 
 export function Category() {
   const dispatch = useDispatch<AppDispatch>()
@@ -46,6 +47,7 @@ export function Category() {
     //     </ul>3
     //   </div>
     // </div>
+
     <div className="container mx-auto p-4 lg:h-screen flex items-center justify-center">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {categories.map((category) => (

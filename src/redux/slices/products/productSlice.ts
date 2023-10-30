@@ -37,7 +37,8 @@ export const userSlice = createSlice({
       state.isLoading = false
       state.products = action.payload
     },
-    addProduct: (state, action: { payload: { product: Product } }) => {
+    addProduct: (state, action) => {
+      // let's append the new product to the beginning of the array
       state.products = [action.payload.product, ...state.products]
     },
     removeProduct: (state, action: { payload: { productId: number } }) => {
@@ -46,12 +47,15 @@ export const userSlice = createSlice({
       )
       state.products = filteredItems
     },
-    editProducts: (state, action: PayloadAction<{ product: Product }>) => {
-      // const {id} = action.payload
-      const index = state.products.findIndex((item) => item.id === action.payload.product.id)
-      const updatedProducts = state.products.splice(index, 1, action.payload.product)
-      return { ...state, products: updatedProducts }
+
+    editProduct: (state, action: { payload: { editedProduct: Product } }) => {
+      const editedProduct = action.payload.editedProduct
+
+      state.products = state.products.map((product) =>
+        product.id === editedProduct.id ? editedProduct : product
+      )
     },
+
     filteredItems: (state, action: { payload: { productId: number } }) => {
       const filteredItems = state.products.filter(
         (product) => product.id !== action.payload.productId
@@ -68,7 +72,7 @@ export const {
   addProduct,
   productsRequest,
   productsSuccess,
-  editProducts,
+  editProduct,
   searchProduct
 } = userSlice.actions
 export default userSlice.reducer

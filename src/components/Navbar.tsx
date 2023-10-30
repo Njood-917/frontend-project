@@ -1,7 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '../redux/store'
+import userSlice from '../redux/slices/products/userSlice'
 export default function Navbar() {
+  const dispatch: AppDispatch = useDispatch()
+  const handleLogout = () => {
+    // dispatch(logout())
+  }
   return (
     <div className="header">
       <nav className="flex items-center justify-between flex-wrap bg-white-500 p-6">
@@ -14,7 +20,7 @@ export default function Navbar() {
               Home
             </Link>
             <Link
-              to={'/Category'}
+              to={'/category'}
               className="block mt-4 lg:inline-block lg:mt-0 text-yellow-500 hover:text-green-500">
               Category
             </Link>
@@ -26,7 +32,7 @@ export default function Navbar() {
               Login
             </Link>
             <Link
-              to={'/Cart'}
+              to={'/cart'}
               className="inline-block text-sm px-4 py-2 leading-none border rounded text-yellow border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
               Cart
             </Link>
@@ -34,6 +40,22 @@ export default function Navbar() {
               to={'/admin'}
               className="inline-block text-sm px-4 py-2 leading-none border rounded text-yellow border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
               Admain
+            </Link>
+            <Link
+              to={'/'}
+              className="inline-block text-sm px-4 py-2 leading-none border rounded text-yellow border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
+              Register
+            </Link>
+            <Link
+              to={'/user'}
+              className="inline-block text-sm px-4 py-2 leading-none border rounded text-yellow border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
+              userDashboard
+            </Link>
+            <Link
+              to="/logout"
+              onClick={handleLogout}
+              className="inline-block text-sm px-4 py-2 leading-none border rounded text-yellow border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
+              logout
             </Link>
           </div>
         </div>

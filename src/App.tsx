@@ -4,32 +4,36 @@ import { Routes, Route } from 'react-router-dom'
 import ProductDetailes from './components/ProductDetailes'
 
 import { UserList } from './components/UserList'
-import AdminPage from './components/AdminPage'
 import { ProductsManager } from './components/ProductsManager'
 import { Order } from './components/Order'
 import { Category } from './components/Category'
-import { EditProductWrapper } from './components/EditProductWrapper'
-import Login from './components/Login'
-import ProtectedRoute from './components/ProtectedRoute'
+
 import MainPage from './components/MainPage'
 import Cart from './components/Cart'
+import { Login } from './components/Login'
+import AdminRoute from './components/AdminRoute'
+import UserProfile from './components/UserProfile'
+import CategoriesForm from './components/CategoriesForm'
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/ProtectedRoute" element={<ProtectedRoute />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/MainPage" element={<MainPage />} />
-        <Route path="/category" element={<Category />} />
-        <Route path="/cart" element={<Cart />} />
-
         <Route path="/" element={<Home />} />
-        <Route path="/admin" element={<ProductsManager />} />
-        <Route path="/order" element={<Order />} />
-        <Route path="/products/edit/:id" element={<EditProductWrapper />} />
-        <Route path="/userList" element={<UserList />} />
+        <Route path="/login" element={<Login />} />
+
+        <Route path="user" element={<MainPage />} />
+        <Route path="user/profile" element={<UserProfile />} />
+        <Route path="/category" element={<Category />} />
         <Route path="/products/:id" element={<ProductDetailes />} />
+
+        <Route element={<AdminRoute />}>
+          <Route path="/admin" element={<ProductsManager />} />
+          <Route path="/categoryForm" element={<CategoriesForm />} />
+          <Route path="/userList" element={<UserList />} />
+          <Route path="/order" element={<Order />} />
+          {/* <Route path="/products/edit/:id" element={<EditProductWrapper />} /> */}
+        </Route>
       </Routes>
     </div>
   )
