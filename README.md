@@ -123,7 +123,7 @@ Tech Stack: React, TypeScript, and Redux/Redux Toolkit. Styling: CSS/SASS or MUI
 
 **Form Validation:**
 
-- Implement form validation.
+- Implement form validation. ✅
 
 ### Level 3: Bonus Requirement (Optional)
 

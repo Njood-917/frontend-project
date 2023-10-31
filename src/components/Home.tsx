@@ -9,7 +9,6 @@ import MainPage from './MainPage'
 export function Home() {
   return (
     <div>
-      <Navbar />
       <div className={styles.video_background}>
         <video autoPlay loop muted className={styles.video_right}>
           <source src={video1} type="video/mp4" />

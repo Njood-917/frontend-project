@@ -1,6 +1,8 @@
 import { ChangeEvent, FormEvent } from 'react'
 import { Product } from '../redux/slices/products/productSlice'
+import { useState } from 'react'
 
+import { showMessage, hideMessage } from 'react-native-flash-message'
 export type ProductFormProps = {
   isEdit: boolean
   product: Product
@@ -12,9 +14,27 @@ export function ProductForm({ isEdit, product, handleSubmit, handleChange }: Pro
   const inputStyle =
     'w-full px-3 py-2 text-black border rounded-lg focus:outline-none focus:border-blue-400'
   const labelStyle = 'block text-sm font-medium text-gray-600'
+  const [addMessage, setAddMessage] = useState('')
+  const isFormCompleted = () => {
+    return (
+      product.name.trim() !== '' &&
+      product.description.trim() !== '' &&
+      product.categories.length > 0 &&
+      product.variants.length > 0 &&
+      product.sizes.length > 0
+    )
+  }
 
+  const handleFormSubmit = async (event: FormEvent) => {
+    event.preventDefault()
+
+    if (isFormCompleted()) {
+      setAddMessage('Add product successfully')
+    }
+    return
+  }
   return (
-    <form onSubmit={handleSubmit} className="p-4 bg-gray-100 rounded-lg">
+    <form onSubmit={handleFormSubmit} className="p-4 bg-gray-100 rounded-lg">
       <div className="mb-4">
         <label htmlFor="name" className={labelStyle}>
           Name:
@@ -96,6 +116,7 @@ export function ProductForm({ isEdit, product, handleSubmit, handleChange }: Pro
         type="submit"
         className="w-full px-4 py-2 text-black bg-blue-500 rounded-lg hover:bg-blue-600">
         {isEdit ? 'Edit Product' : 'Add Product'}
+        {addMessage && <p className="add-message">{addMessage}</p>}
       </button>
     </form>
   )

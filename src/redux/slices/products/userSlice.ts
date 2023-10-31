@@ -15,6 +15,7 @@ export type UserState = {
   isLoggedIn: boolean // every body know if the user logged in
   userData: User | null // i can use the data from anywhere
   isAdmin: boolean
+  currentUser: User | null
 }
 const initialState: UserState = {
   users: [],
@@ -22,7 +23,8 @@ const initialState: UserState = {
   isLoading: false,
   isLoggedIn: false,
   isAdmin: false,
-  userData: null
+  userData: null,
+  currentUser: null
 }
 
 export const userSlice = createSlice({

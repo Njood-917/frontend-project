@@ -1,5 +1,6 @@
 import { useEffect, ChangeEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Button } from '@mui/material'
 
 import {
   productsRequest,
@@ -17,6 +18,9 @@ import { AppDispatch, RootState } from '../redux/store'
 import api from '../api'
 import { Link } from 'react-router-dom'
 import styles from './MainPage.module.css'
+import { colors } from '@mui/material'
+import { red } from '@mui/material/colors'
+import { ShoppingCart as ShoppingCartIcon } from '@mui/icons-material'
 export default function MainPage() {
   const dispatch = useDispatch<AppDispatch>()
   const state = useSelector((state: RootState) => state)
@@ -95,7 +99,6 @@ export default function MainPage() {
             ))}
           </select>
         </div>
-        {products.isLoading && <h3>Loading products...</h3>}
         <div>
           <h2> search Product</h2>
 
@@ -109,28 +112,67 @@ export default function MainPage() {
           />
         </div>
         <div className="grid grid-cols-1 gap-x-3 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 xl:gap-x-8">
-          {filteredAndSearchedProducts.map((product) => (
-            <div key={product.id}>
-              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                <img
-                  src={product.image}
-                  alt="Tall slender porcelain bottle with natural clay textured body and cork stopper ."
-                  className="h-full w-full object-cover object-center group-hover:opacity-75"
-                />
+          {products.isLoading ? (
+            <h3 style={{ textAlign: 'center', color: 'red' }}>Loading products...</h3>
+          ) : (
+            filteredAndSearchedProducts.map((product) => (
+              <div key={product.id}>
+                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+                  <img
+                    src={product.image}
+                    alt="Tall slender porcelain bottle with natural clay textured body and cork stopper ."
+                    className="h-full w-full object-cover object-center group-hover:opacity-75"
+                  />
+                </div>
+                <h3 className="mt-4 text-sm text-green-800">{product.name}</h3>
+                <Link to={`products/${product.id}`}>
+                  <Button variant="contained" color="success" size="small">
+                    detailes
+                  </Button>
+                </Link>
+                <button
+                  onClick={() => dispatch(addToCart(product))}
+                  className="mt-1 ml-3 text-lg font-medium text-yellow-300">
+                  <ShoppingCartIcon data-testid="ShoppingCartIcon" />
+                </button>
               </div>
-              <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
-              <Link to={`products/${product.id}`}>
-                <button className="mt-1 text-lg font-medium text-gray-900">More detailes</button>
-              </Link>
-              <button
-                onClick={() => dispatch(addToCart(product))}
-                className="mt-1 text-lg font-medium text-gray-900">
-                Add
-              </button>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
+      <footer className="bg-yellow-200 rounded-lg shadow m-4 dark:bg-gray-800">
+        <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+          <span className="text-sm text-green-800 md:text-center dark:text-green-800 font-bold">
+            © 2023{' '}
+            <a href="https://flowbite.com/" className="hover:color:yellow">
+              Flowbite™
+            </a>
+            . All Rights Reserved.
+          </span>
+          <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-green-800 dark:text-gray-400 sm:mt-0">
+            <li>
+              <a href="#" className="mr-4 hover:underline md:mr-6 ">
+                About
+              </a>
+            </li>
+            <li>
+              <a href="#" className="mr-4 hover:underline md:mr-6">
+                Privacy Policy
+              </a>
+            </li>
+            <li>
+              <a href="#" className="mr-4 hover:underline md:mr-6">
+                Licensing
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline">
+                Contact
+              </a>
+            </li>
+          </ul>
+        </div>
+      </footer>
     </div>
   )
 }
