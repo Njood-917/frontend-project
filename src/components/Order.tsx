@@ -26,20 +26,36 @@ export function Order() {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 w-full">
-      {isLoading && <h3> Loading categories...</h3>}
-      <div className="card grid gap-4">
-        <h1>List of User</h1>
-        <ul>
+    <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
+      {isLoading && <h3>Loading orders...</h3>}
+      <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
+        <thead className="bg-gray-50">
+          <tr>
+            <th scope="col" className="px-6 py-4 font-medium text-gray-900">
+              Product ID
+            </th>
+            <th scope="col" className="px-6 py-4 font-medium text-gray-900">
+              Purchased At
+            </th>
+            <th scope="col" className="px-6 py-4 font-medium text-gray-900">
+              User ID
+            </th>
+            <th scope="col" className="px-6 py-4 font-medium text-gray-900">
+              User Name
+            </th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-gray-100 border-t border-gray-100">
           {orders.map((order) => (
-            <li key={order.id} className="flex items-center justify-center gap-4 text-2xl mb-2">
-              <h5>{order.productId}</h5>
-              <p>{order.purchasedAt}</p>
-              <p>{order.userId}</p>
-            </li>
+            <tr key={order.id} className="hover:bg-gray-50">
+              <td className="px-6 py-4 font-normal text-gray-900">{order.productId}</td>
+              <td className="px-6 py-4 font-normal text-gray-900">{order.purchasedAt}</td>
+              <td className="px-6 py-4 font-normal text-gray-900">{order.userId}</td>
+              <td className="px-6 py-4 font-normal text-gray-900">{order.firstName}</td>
+            </tr>
           ))}
-        </ul>
-      </div>
+        </tbody>
+      </table>
     </div>
   )
 }

@@ -5,7 +5,8 @@
     "lastName": "Doe",
     "email": "john.doe@example.com",
     "password": "1234",
-    "role": "admin"
+    "role": "admin",
+    "profileImageUrl":"src/assets/person1.jpg"
   },
   {
     "id": 2,
@@ -13,14 +14,16 @@
     "lastName": "Smith",
     "email": "jane.smith@example.com",
     "password": "1234",
-    "role": "visitor"
+    "role": "visitor",
+    "profileImageUrl":"src/assets/person2.jpg"
   },
   {
     "id": 3,
-    "firstName": "David",
-    "lastName": "Johnson",
+    "firstName": "Nora",
+    "lastName": "Mohammed",
     "email": "david.johnson@example.com",
     "password": "1234",
-    "role": "visitor"
+    "role": "visitor",
+    "profileImageUrl":"src/assets/person3.jpg"
   }
 ]

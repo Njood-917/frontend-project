@@ -7,6 +7,7 @@ export type User = {
   email: string
   password: string
   role: string
+  profileImageUrl: string
 }
 export type UserState = {
   users: User[]
@@ -34,6 +35,13 @@ export const userSlice = createSlice({
     login: (state, action) => {
       state.isLoggedIn = true
       state.userData = action.payload
+      localStorage.setItem(
+        'loginData',
+        JSON.stringify({
+          isLoggedIn: state.isLoggedIn,
+          userData: state.userData
+        })
+      )
     },
     Adminlogin: (state, action: PayloadAction<User>) => {
       if (state.userData?.role === 'admin') {
@@ -59,10 +67,34 @@ export const userSlice = createSlice({
     },
     getError: (state, action: PayloadAction<string>) => {
       state.error = action.payload
+    },
+    updateUser: (state, action) => {
+      const { id, firstName, lastName } = action.payload
+      const foundUser = state.users.find((user) => user.id === id)
+      if (foundUser) {
+        foundUser.firstName = firstName
+        foundUser.lastName = lastName
+        state.userData = foundUser
+        localStorage.setItem(
+          'loginData',
+          JSON.stringify({
+            isLoggedIn: state.isLoggedIn,
+            userData: state.userData
+          })
+        )
+      }
     }
   }
 })
 
-export const { userRequest, userSuccess, login, removeUser, logout, getError, Adminlogin } =
-  userSlice.actions
+export const {
+  userRequest,
+  userSuccess,
+  login,
+  removeUser,
+  logout,
+  getError,
+  Adminlogin,
+  updateUser
+} = userSlice.actions
 export default userSlice.reducer

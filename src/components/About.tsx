@@ -1,8 +1,3 @@
-// import React from 'react'; // Not needed in newer versions of React
-import styles from './About.module.css' // Clean this up if not needed
-import dummble from '../assets/dummble-img.jpg' // Clean this up if not needed
-import dites from '../assets/dites-img.jpg' // Clean this up if not needed
-
 function About() {
   return (
     <div className="relative flex flex-col items-center mx-auto lg:flex-row-reverse lg:max-w-5xl lg:mt-12 xl:max-w-6xl">

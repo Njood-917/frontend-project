@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { categoriesSuccess, categoriesRequest } from '../redux/slices/products/categorySlice'
 import { AppDispatch, RootState } from '../redux/store'
 import styles from './Category.module.css'
-// import { NewProductWrapper } from './NewProductWrapper'
 import api from '../api'
 import CategoriesForm from './CategoriesForm'
 
@@ -18,10 +17,6 @@ export function Category() {
     handleGetCategories()
   }, [])
 
-  /**
-   * If you want to keep things simple you can follow this approach on updating
-   * redux state when using async requests instead of using createAsyncThunk
-   */
   const handleGetCategories = async () => {
     // let's first turn the loader to true so we can have a better UX
     dispatch(categoriesRequest())
@@ -33,21 +28,6 @@ export function Category() {
   }
 
   return (
-    // <div classNameName="grid grid-cols-1 md:grid-cols-2 w-full">
-    //   {isLoading && <h3> Loading categories...</h3>}
-    //   <div classNameName="card grid gap-4">
-    //     <h1>Category </h1>
-    //     <ul>
-    //       {categories.map((category) => (
-    //         <li key={category.id} classNameName="flex items-center justify-center gap-4 text-2xl mb-2">
-    //           <img src={category.image} width="100" />
-    //           <span>{category.name}</span>
-    //         </li>
-    //       ))}
-    //     </ul>3
-    //   </div>
-    // </div>
-
     <div className="container mx-auto p-4 lg:h-screen flex items-center justify-center">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {categories.map((category) => (
@@ -61,7 +41,6 @@ export function Category() {
             />
             <div className="absolute bottom-0 left-0 right-0 h-20 bg-black bg-opacity-50 backdrop-blur text-white p-4 rounded-b-lg">
               <h1 className="text-2xl font-semibold">{category.name}</h1>
-              {/* <p className="mt-2">{category.name}</p> */}
             </div>
           </div>
         ))}

@@ -4,10 +4,13 @@ import { RootState } from '../redux/store'
 import { Outlet } from 'react-router-dom'
 import { Login } from './Login'
 
-const ProtectedRoute = () => {
+const useAuth = () => {
   const { isLoggedIn } = useSelector((state: RootState) => state.usersR)
 
-  return isLoggedIn ? <Outlet /> : <Login />
+  return isLoggedIn
 }
-
+const ProtectedRoute = () => {
+  const isAuth = useAuth()
+  return <div>{isAuth ? <Outlet /> : <Login />}</div>
+}
 export default ProtectedRoute

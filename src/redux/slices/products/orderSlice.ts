@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export type Order = {
+  [x: string]: ReactNode
   id: number
   productId: number
   userId: number

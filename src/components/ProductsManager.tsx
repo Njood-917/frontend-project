@@ -11,7 +11,6 @@ import {
   Product
 } from '../redux/slices/products/productSlice'
 import { AppDispatch, RootState } from '../redux/store'
-// import { NewProductWrapper } from './NewProductWrapper'
 import api from '../api'
 
 export function ProductsManager() {
@@ -88,15 +87,6 @@ export function ProductsManager() {
 
   return (
     <div>
-      <Link to={'/categoryForm'}>
-        <button>category</button>
-      </Link>
-      <Link to={'/userList'}>
-        <button>users</button>
-      </Link>
-      <Link to={'/order'}>
-        <button>orders</button>
-      </Link>
       <div className="w-3/4 bg-white p-4">
         <div className=" rounded-lg overflow-hidden mx-4 md:mx-10">
           <div className="flex flex-1 items-center justify-center p-6">
@@ -223,12 +213,12 @@ export function ProductsManager() {
                   <td className="py-4 px-6 border-b border-gray-200 whitespace">
                     <button
                       onClick={() => handleEditBtnClick(product)}
-                      className="mr-1 text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:shadow-outline-blue active:bg-blue-600 py-2 px-4 font-small">
+                      className="mr-1 text-white bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:shadow-outline-blue active:bg-blue-600 py-2 px-4 font-small">
                       Edit
                     </button>
                     <button
                       onClick={() => dispatch(removeProduct({ productId: product.id }))}
-                      className="text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-blue active:bg-red-600 py-2 px-4 font-small">
+                      className="text-white  bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-blue active:bg-red-600 py-2 px-4 font-small">
                       Delete
                     </button>
                   </td>

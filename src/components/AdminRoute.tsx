@@ -4,10 +4,10 @@ import { RootState } from '../redux/store'
 import { useSelector } from 'react-redux/es/exports'
 
 const useAuth = () => {
-  const userloggedIn = useSelector((state: RootState) => state.usersR.isLoggedIn)
-  const isAdmin = useSelector((state: RootState) => state.usersR.isAdmin)
+  const { isLoggedIn } = useSelector((state: RootState) => state.usersR)
+  const { isAdmin } = useSelector((state: RootState) => state.usersR)
 
-  return userloggedIn && isAdmin
+  return isLoggedIn && isAdmin
 }
 const AdminRoute = () => {
   const isAuth = useAuth()

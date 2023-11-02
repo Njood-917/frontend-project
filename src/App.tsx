@@ -16,11 +16,11 @@ import { Login } from './components/Login'
 import AdminRoute from './components/AdminRoute'
 import CategoriesForm from './components/CategoriesForm'
 import UserProfile from './components/UserProfile'
-import EditProfile from './components/EditProfile'
 import { useSelector } from 'react-redux'
 import { RootState } from './redux/store'
 import { Navigate } from 'react-router-dom'
 import Navbar from './components/Navbar'
+import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
   const isLoggedIn = useSelector((state: RootState) => state.usersR.isLoggedIn)
@@ -30,9 +30,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
 
-        <Route path="/login" element={<Login />}>
-          <Route path="profile" element={<UserProfile />} />
-          <Route path="edit-profile" element={<EditProfile />} />
+        <Route path="/login" element={<Login />} />
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="/visitor" element={<UserProfile />} />
         </Route>
 
         <Route path="/category" element={<Category />} />
