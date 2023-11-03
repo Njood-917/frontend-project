@@ -1,4 +1,4 @@
-import { useEffect, ChangeEvent } from 'react'
+import { useEffect, ChangeEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button } from '@mui/material'
 import { Link } from 'react-router-dom'
@@ -25,6 +25,9 @@ export default function MainPage() {
   const products = state.products
   const categories = state.categories
   const searchTerm = useSelector((state: RootState) => state.products.SearchTerm)
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 4
 
   useEffect(() => {
     handleGetProducts()
@@ -87,6 +90,16 @@ export default function MainPage() {
 
   const filteredAndSearchedProducts = filterProductbySearch(filteredProducts, searchTerm)
 
+  const indexOfLastProduct = currentPage * itemsPerPage
+  const indexOfFirstProduct = indexOfLastProduct - itemsPerPage
+  const currentProducts = filteredAndSearchedProducts.slice(indexOfFirstProduct, indexOfLastProduct)
+
+  const totalPages = Math.ceil(filteredAndSearchedProducts.length / itemsPerPage)
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber)
+  }
+
   return (
     <>
       <div className="bg-white">
@@ -141,7 +154,7 @@ export default function MainPage() {
         {products.isLoading ? (
           <h3 style={{ textAlign: 'center', color: 'red' }}>Loading products...</h3>
         ) : (
-          filteredAndSearchedProducts.map((product) => (
+          currentProducts.map((product) => (
             <div key={product.id}>
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                 <img
@@ -150,6 +163,7 @@ export default function MainPage() {
                   className="h-full w-full object-cover object-center group-hover:opacity-75"
                 />
               </div>
+
               <h3 className="mt-4 text-sm text-green-800">{product.name}</h3>
               <Link to={`products/${product.id}`}>
                 <Button variant="contained" color="success" size="small">
@@ -164,6 +178,23 @@ export default function MainPage() {
             </div>
           ))
         )}
+      </div>
+      {/* Pagination buttons */}
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+        {Array.from({ length: totalPages }, (_, index) => index + 1).map((pageNumber) => (
+          <button
+            key={pageNumber}
+            onClick={() => handlePageChange(pageNumber)}
+            style={{
+              padding: '5px',
+              margin: '4px',
+              backgroundColor: currentPage === pageNumber ? 'gray' : 'gray',
+              color: 'white',
+              cursor: 'pointer'
+            }}>
+            {pageNumber}
+          </button>
+        ))}
       </div>
 
       <footer className="bg-yellow-200 rounded-lg shadow m-4 dark:bg-gray-800">

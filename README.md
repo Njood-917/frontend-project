@@ -131,7 +131,7 @@ If you have a higher skill level and finish the previous requirements before the
 
 - Messages, show loading, success, and error messages (e.g., when loading products list or adding new product) ✅
 - Implement pagination feature
-- Create a Profile Page (only available if user logs in), implement editing user profile feature (user can change first name, last name)
+- Create a Profile Page (only available if user logs in), implement editing user profile feature (user can change first name, last name)✅
 
 - Peer Review:
 - Review the code and implementation of 2 assignments from other participants.

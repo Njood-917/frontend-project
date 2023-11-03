@@ -50,8 +50,8 @@ export function UserList() {
                 <div className="relative h-10 w-10">
                   <img
                     className="h-full w-full rounded-full object-cover object-center"
-                    src={user.profileImageUrl} // Replace with actual property
-                    alt={user.firstName} // Replace with actual property
+                    src={user.profileImageUrl}
+                    alt={user.firstName}
                   />
                   <span className="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white"></span>
                 </div>

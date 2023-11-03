@@ -18,12 +18,8 @@ export function Category() {
   }, [])
 
   const handleGetCategories = async () => {
-    // let's first turn the loader to true so we can have a better UX
     dispatch(categoriesRequest())
-
-    // Fetching from the local files
     const res = await api.get('/mock/e-commerce/categories.json')
-    // At this point we have the data so let's update the store
     dispatch(categoriesSuccess(res.data))
   }
 

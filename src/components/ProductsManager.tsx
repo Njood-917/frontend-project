@@ -1,6 +1,7 @@
 import { useEffect, ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 import {
   productsRequest,
@@ -55,9 +56,11 @@ export function ProductsManager() {
     if (selectedProduct && selectedProduct.id) {
       const updatedProduct = { ...selectedProduct }
       dispatch(editProduct({ editedProduct: updatedProduct }))
+      toast.success('edit product sucessfully')
     } else {
       const newProduct = { ...product, id: new Date().getTime() }
       dispatch(addProduct({ product: newProduct }))
+      toast.success('add product sucessfully')
     }
 
     setProduct({

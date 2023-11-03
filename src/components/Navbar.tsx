@@ -5,9 +5,13 @@ import { AppDispatch, RootState } from '../redux/store'
 import userSlice from '../redux/slices/products/userSlice'
 import { ShoppingCart as ShoppingCartIcon } from '@mui/icons-material'
 import UserProfile from './UserProfile'
+
 export default function Navbar() {
-  const { isLoggedIn, isAdmin, userData } = useSelector((state: RootState) => state.usersR)
+  const { isLoggedIn, isAdmin, userData, logout } = useSelector((state: RootState) => state.usersR)
   const dispatch: AppDispatch = useDispatch()
+  function handleLogout() {
+    dispatch(logout())
+  }
 
   return (
     <div className="header">
@@ -28,42 +32,7 @@ export default function Navbar() {
             <ul className="md:space-x-8 space-x-6 text-gray-900 font-semibold hidden md:flex">
               {isLoggedIn && !isAdmin && (
                 <li className="relative group">
-                  <div className="flex">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="currentColor"
-                      className="w-6 h-6">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                    </svg>
-                    <div className="">
-                      <select
-                        defaultValue=""
-                        className=""
-                        onChange={(e) => {
-                          const selectedOption = e.target.value
-                          if (selectedOption === '/visitor') {
-                            // Navigate to the visitor/profile page
-                            window.location.href = '/visitor'
-                          } else if (selectedOption === '/logout') {
-                            // Navigate to the logout page
-                            window.location.href = '/logout'
-                          }
-                        }}>
-                        <option value="" disabled>
-                          {userData?.firstName}
-                        </option>
-                        <option value="/visitor">Profile</option>
-                        <option value="/logout">Logout</option>
-                      </select>
-                    </div>
-                  </div>
+                  <div className="flex"></div>
                   <div className="w-full h-0.5 bg-transparent group-hover:bg-yellow-500 transition-al absolute bottom-0" />
                 </li>
               )}
@@ -163,32 +132,30 @@ export default function Navbar() {
                 </>
               )}
 
+              {isLoggedIn !== null && (
+                <>
+                  <li className="relative group">
+                    <Link
+                      className="bg-yellow-300 px-4 py-1 rounded-xl text-white hover:bg-yellow-500 active:bg-yellow-500focus:ring focus:bg-yellow-500 focus:ring-opacity-25 outline-none"
+                      onClick={handleLogout}
+                      to={'/'}>
+                      Logout
+                    </Link>
+                  </li>
+                </>
+              )}
               {isLoggedIn && (
                 <>
                   <li>
                     <Link
                       to={`/${userData?.role}`}
                       className="group focus:ring focus:ring-purple-500 focus:ring-opacity-25 outline-none rounded-lg">
-                      {userData?.firstName}
-                      👤
+                      👤{userData?.firstName}
                     </Link>
                   </li>
                 </>
               )}
             </ul>
-            <button className="flex md:hidden hover:bg-gray-100 p-2 rounded-full transition-all focus:ring focus:ring-purple-500 focus:ring-opacity-25 active:bg-gray-200 outline-none">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor">
-                <path
-                  fillRule="evenodd"
-                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </button>
           </section>
         </div>
       </nav>

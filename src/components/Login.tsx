@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { AppDispatch, RootState } from '../redux/store'
 
@@ -44,6 +45,7 @@ export const Login = () => {
       const foundUser = users.find((userData) => userData.email === user.email)
       if (foundUser && foundUser.password === user.password) {
         dispatch(login(foundUser))
+        toast.success('Welcome back ' + foundUser.firstName + "! We're glad to see you again")
         if (foundUser && foundUser.role === 'admin') {
           dispatch(Adminlogin(foundUser))
           navigate('/admin')
