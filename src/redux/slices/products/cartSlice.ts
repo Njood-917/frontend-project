@@ -1,5 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { json } from 'react-router'
+import { createSlice } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 
 export type CartProduct = {
@@ -19,8 +18,6 @@ export type ProductState = {
   cartTotal: number
   cartAmount: number
 }
-
-const cartItemsFromStorage = localStorage.getItem('cartItems')
 
 const initialState: ProductState = {
   cartItems: [],

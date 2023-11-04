@@ -170,11 +170,13 @@ export default function MainPage() {
                   details
                 </Button>
               </Link>
-              <button
-                onClick={() => dispatch(addToCart(product))}
-                className="mt-1 ml-3 text-lg font-medium text-yellow-300">
-                <ShoppingCartIcon data-testid="ShoppingCartIcon" />
-              </button>
+              <Link to="/cart">
+                <button
+                  onClick={() => dispatch(addToCart(product))}
+                  className="mt-1 ml-3 text-lg font-medium text-yellow-300">
+                  <ShoppingCartIcon data-testid="ShoppingCartIcon" />
+                </button>
+              </Link>
             </div>
           ))
         )}

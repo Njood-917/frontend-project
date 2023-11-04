@@ -1,16 +1,16 @@
 import React from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../redux/store'
-import userSlice from '../redux/slices/products/userSlice'
-import { ShoppingCart as ShoppingCartIcon } from '@mui/icons-material'
-import UserProfile from './UserProfile'
+
+import { toast } from 'react-toastify'
 
 export default function Navbar() {
   const { isLoggedIn, isAdmin, userData, logout } = useSelector((state: RootState) => state.usersR)
   const dispatch: AppDispatch = useDispatch()
   function handleLogout() {
     dispatch(logout())
+    toast.error('see you soon')
   }
 
   return (
